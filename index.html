@@ -1344,27 +1344,39 @@
     }
 
     // Phone number formatting
+    // ===== Автоформат телефона с заменой 8 → +7 =====
     const phoneInput = document.getElementById('phone');
     if (phoneInput) {
         phoneInput.addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
+
+            // Если начинается с 8 → заменяем на 7
+            if (value.startsWith('8')) {
+                value = '7' + value.slice(1);
+            }
+
+            // Если начинается с 9 (без 8/7) → добавляем 7
+            if (value.startsWith('9')) {
+                value = '7' + value;
+            }
+
+            // Формируем +7 (XXX) XXX-XX-XX
             if (value.startsWith('7')) {
-                value = value.substring(1);
+                const digits = value.slice(1);
+
+                let formatted = '+7';
+                if (digits.length > 0) formatted += ' (' + digits.slice(0, 3);
+                if (digits.length >= 3) formatted += ') ' + digits.slice(3, 6);
+                if (digits.length >= 6) formatted += '-' + digits.slice(6, 8);
+                if (digits.length >= 8) formatted += '-' + digits.slice(8, 10);
+
+                e.target.value = formatted;
+            } else {
+                e.target.value = value;
             }
-            if (value.length > 0) {
-                if (value.length <= 3) {
-                    value = `+7 (${value}`;
-                } else if (value.length <= 6) {
-                    value = `+7 (${value.substring(0, 3)}) ${value.substring(3)}`;
-                } else if (value.length <= 8) {
-                    value = `+7 (${value.substring(0, 3)}) ${value.substring(3, 6)}-${value.substring(6)}`;
-                } else {
-                    value = `+7 (${value.substring(0, 3)}) ${value.substring(3, 6)}-${value.substring(6, 8)}-${value.substring(8, 10)}`;
-                }
-            }
-            e.target.value = value;
         });
     }
+
 
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
