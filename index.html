@@ -24,7 +24,6 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/105809918" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
 </head>
-
 <body class="font-inter">
 <!-- Navigation Header -->
 <header class="bg-white shadow-sm sticky top-0 z-50">
@@ -60,7 +59,6 @@
         </div>
     </nav>
 </header>
-
 <!-- Hero Section with Video -->
 <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 z-0">
@@ -112,7 +110,6 @@
         </div>
     </div>
 </section>
-
 <!-- Pain Points Section -->
 <section class="py-16 bg-surface">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -162,7 +159,6 @@
         </div>
     </div>
 </section>
-
 <!-- Timeline Visualization -->
 <section id="timeline" class="py-16 bg-primary-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -238,7 +234,6 @@
         </div>
     </div>
 </section>
-
 <section id="cases" class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
@@ -531,7 +526,6 @@
         </div>
     </div>
 </section>
-
 <!-- МОДАЛЬНОЕ ОКНО -->
 <div id="case-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 modal-backdrop">
     <!-- фон -->
@@ -560,14 +554,6 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
 <!-- Turnkey Package  dark  -->
 <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -830,7 +816,6 @@
         </div>
     </div>
 </section>
-
 <!-- Social Proof & Testimonials -->
 <section class="py-16 section-alternate">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -921,10 +906,6 @@
         </div>
     </div>
 </section>
-
-
-
-
 <!-- Executive Director Section -->
 <section class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -950,7 +931,6 @@
         </div>
     </div>
 </section>
-
 <!-- Lead Capture Form -->
 <section id="contact" class="py-16 bg-primary text-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1021,7 +1001,6 @@
         </form>
     </div>
 </section>
-
 <!-- Final CTA -->
 <section class="py-16 bg-accent text-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -1044,8 +1023,6 @@
         </p>
     </div>
 </section>
-
-<!-- Footer -->
 <!-- Footer -->
 <footer class="bg-gray-900 text-white py-12">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1111,7 +1088,6 @@
         </div>
     </div>
 </footer>
-
 <!-- JavaScript -->
 <script>
     // ===== КАРУСЕЛЬ И МОДАЛЬНЫЕ ОКНА =====
@@ -1409,6 +1385,47 @@
 <script>
     const io=new IntersectionObserver((e)=>{e.forEach(r=>{if(r.isIntersecting)r.target.classList.add('fade-in')})});
     document.querySelectorAll('.scroll-animate').forEach(el=>io.observe(el));
+</script>
+<script>
+    // Отслеживание скроллинга с debounce
+    const scrollTracked = {
+        '25': false,
+        '50': false,
+        '75': false,
+        '100': false
+    };
+
+    let scrollTimeout;
+
+    function trackScroll() {
+        const scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
+
+        if (scrollPercent >= 25 && !scrollTracked['25']) {
+            ym(10580918, 'reachGoal', 'scroll_25');
+            scrollTracked['25'] = true;
+            console.log('Достигнут скроллинг 25%');
+        }
+        if (scrollPercent >= 50 && !scrollTracked['50']) {
+            ym(10580918, 'reachGoal', 'scroll_50');
+            scrollTracked['50'] = true;
+            console.log('Достигнут скроллинг 50%');
+        }
+        if (scrollPercent >= 75 && !scrollTracked['75']) {
+            ym(10580918, 'reachGoal', 'scroll_75');
+            scrollTracked['75'] = true;
+            console.log('Достигнут скроллинг 75%');
+        }
+        if (scrollPercent >= 100 && !scrollTracked['100']) {
+            ym(10580918, 'reachGoal', 'scroll_100');
+            scrollTracked['100'] = true;
+            console.log('Достигнут скроллинг 100%');
+        }
+    }
+
+    window.addEventListener('scroll', () => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(trackScroll, 100);
+    });
 </script>
 </body>
 
