@@ -1401,22 +1401,22 @@
         const scrollPercent = Math.round((window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100);
 
         if (scrollPercent >= 25 && !scrollTracked['25']) {
-            ym(10580918, 'reachGoal', 'scroll_25');
+            ym(105809918, 'reachGoal', 'scroll_25');
             scrollTracked['25'] = true;
             console.log('Достигнут скроллинг 25%');
         }
         if (scrollPercent >= 50 && !scrollTracked['50']) {
-            ym(10580918, 'reachGoal', 'scroll_50');
+            ym(105809918, 'reachGoal', 'scroll_50');
             scrollTracked['50'] = true;
             console.log('Достигнут скроллинг 50%');
         }
         if (scrollPercent >= 75 && !scrollTracked['75']) {
-            ym(10580918, 'reachGoal', 'scroll_75');
+            ym(105809918, 'reachGoal', 'scroll_75');
             scrollTracked['75'] = true;
             console.log('Достигнут скроллинг 75%');
         }
         if (scrollPercent >= 100 && !scrollTracked['100']) {
-            ym(10580918, 'reachGoal', 'scroll_100');
+            ym(105809918, 'reachGoal', 'scroll_100');
             scrollTracked['100'] = true;
             console.log('Достигнут скроллинг 100%');
         }
@@ -1425,6 +1425,57 @@
     window.addEventListener('scroll', () => {
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(trackScroll, 100);
+    });
+</script>
+<script>
+    // Отслеживание целей Яндекс.Метрики
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // 1. ОТПРАВКА ФОРМЫ (самая важная цель!)
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                ym(105809918, 'reachGoal', 'submit_form');
+                console.log('Цель достигнута: Отправка заявки');
+            });
+        }
+
+        // 2. КЛИК ПО ТЕЛЕФОНУ
+        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
+        phoneLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                ym(105809918, 'reachGoal', 'click_phone');
+                console.log('Цель достигнута: Клик по телефону');
+            });
+        });
+
+        // 3. ИСПОЛЬЗОВАНИЕ КАЛЬКУЛЯТОРА (отслеживание изменения слайдеров)
+        let calculatorUsed = false;
+        const widthSlider = document.getElementById('width-slider');
+        const lengthSlider = document.getElementById('length-slider');
+        const heightSlider = document.getElementById('height-slider');
+
+        function trackCalculatorUse() {
+            if (!calculatorUsed) {
+                ym(105809918, 'reachGoal', 'use_calculator');
+                console.log('Цель достигнута: Использование калькулятора');
+                calculatorUsed = true;
+            }
+        }
+
+        if (widthSlider) widthSlider.addEventListener('input', trackCalculatorUse);
+        if (lengthSlider) lengthSlider.addEventListener('input', trackCalculatorUse);
+        if (heightSlider) heightSlider.addEventListener('input', trackCalculatorUse);
+
+        // 4. СКАЧИВАНИЕ ФАЙЛОВ
+        const downloadLinks = document.querySelectorAll('a[download], a[href$=".pdf"], a[href$=".doc"], a[href$=".docx"]');
+        downloadLinks.forEach(function(link) {
+            link.addEventListener('click', function() {
+                ym(105809918, 'reachGoal', 'download_file');
+                console.log('Цель достигнута: Скачивание файла');
+            });
+        });
+
     });
 </script>
 </body>
