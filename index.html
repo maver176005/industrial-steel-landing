@@ -1435,19 +1435,18 @@
         const form = document.querySelector('form');
         if (form) {
             form.addEventListener('submit', function(e) {
+                e.preventDefault(); // Останавливаем отправку формы
+
+                // Отправляем цель в Метрику
                 ym(105809918, 'reachGoal', 'submit_form');
                 console.log('Цель достигнута: Отправка заявки');
+
+                // Даем 300мс на отправку данных в Метрику, затем отправляем форму
+                setTimeout(function() {
+                    form.submit(); // Теперь отправляем форму
+                }, 300);
             });
         }
-
-        // 2. КЛИК ПО ТЕЛЕФОНУ
-        const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
-        phoneLinks.forEach(function(link) {
-            link.addEventListener('click', function() {
-                ym(105809918, 'reachGoal', 'click_phone');
-                console.log('Цель достигнута: Клик по телефону');
-            });
-        });
 
         // 3. ИСПОЛЬЗОВАНИЕ КАЛЬКУЛЯТОРА (отслеживание изменения слайдеров)
         let calculatorUsed = false;
